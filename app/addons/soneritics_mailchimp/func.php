@@ -39,3 +39,11 @@ function fn_soneritics_mailchimp_add_subscriber(string $email, string $firstname
             $lastname);
     }
 }
+
+function fn_soneritics_mailchimp_export_subscriber(string $email, string $firstname, string $lastname)
+{
+    return fn_soneritics_mailchimp_get_api()->export(
+        $email,
+        $firstname,
+        $lastname);
+}

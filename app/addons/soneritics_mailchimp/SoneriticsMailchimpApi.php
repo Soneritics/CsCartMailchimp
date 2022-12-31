@@ -26,6 +26,8 @@ class SoneriticsMailchimpApi
 {
     private $api;
 
+    private $listId;
+
     public function __construct($apiKey, $server = 'us1')
     {
         $this->api = new MailchimpMarketing\ApiClient();
@@ -38,7 +40,7 @@ class SoneriticsMailchimpApi
 
     public function setListId(string $listId)
     {
-
+        $this->listId = $listId;
     }
 
     public function getLists()
@@ -59,6 +61,29 @@ class SoneriticsMailchimpApi
             return $result;
         } catch (\Throwable $t){
             return ['' => 'No lists available: ' . $t->getMessage()];
+        }
+    }
+
+    public function export(string $email, string $firstname, string $lastname)
+    {
+        if (empty($this->listId)) {
+            throw new Exception("List ID has not been set, can not export subscriber to Mailchimp.");
+        }
+
+        try {
+            $this->api->lists->addListMember(
+                $this->listId,
+                [
+                    'email_address' => $email,
+                    'status' => 'subscribed',
+                    'merge_fields' => [
+                        'FNAME' => $firstname,
+                        'LNAME' => $lastname
+                    ]
+                ]
+            );
+        } catch (Exception $e) {
+            // Do nothing
         }
     }
 }
