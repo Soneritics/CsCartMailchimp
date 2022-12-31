@@ -28,10 +28,13 @@ class SoneriticsMailchimpSettings
 
     private $listId;
 
+    private $exportToMailChimp = false;
+
     public function __construct()
     {
         $this->apiKey = \Tygh\Registry::get('addons.soneritics_mailchimp.apikey');
         $this->listId = \Tygh\Registry::get('addons.soneritics_mailchimp.list_id');
+        $this->exportToMailChimp = strtoupper(\Tygh\Registry::get('addons.soneritics_mailchimp.export_to_mailchimp')) === 'Y';
     }
 
     /**
@@ -48,6 +51,14 @@ class SoneriticsMailchimpSettings
     public function getListId()
     {
         return $this->listId;
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldExportToMailChimp(): bool
+    {
+        return $this->exportToMailChimp;
     }
 
     /**

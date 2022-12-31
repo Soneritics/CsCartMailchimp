@@ -31,9 +31,11 @@ function fn_soneritics_mailchimp_get_active_list_id()
 
 function fn_soneritics_mailchimp_add_subscriber(string $email, string $firstname, string $lastname)
 {
-    db_query(
-        'INSERT INTO ?:soneritics_mailchimp_queue(email, firstname, lastname) VALUES(?s, ?s, ?s)',
-        $email,
-        $firstname,
-        $lastname);
+    if ((new SoneriticsMailchimpSettings())->shouldExportToMailChimp()) {
+        db_query(
+            'INSERT INTO ?:soneritics_mailchimp_queue(email, firstname, lastname) VALUES(?s, ?s, ?s)',
+            $email,
+            $firstname,
+            $lastname);
+    }
 }
