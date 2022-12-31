@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<addon scheme="3.0">
+    <id>soneritics_mailchimp</id>
+    <name>Soneritics Mailchimp</name>
+    <version>1.0</version>
+    <default_language>en</default_language>
+    <priority>1000</priority>
+    <status>active</status>
+    <has_icon>Y</has_icon>
+    <settings edition_type="ROOT,ULT:VENDOR">
+        <sections>
+            <section id="general">
+                <items>
+                    <item id="apikey">
+                        <name>Mailchimp API Key</name>
+                        <type>input</type>
+                        <default_value></default_value>
+                    </item>
+                    <item id="list_id">
+                        <type>hidden</type>
+                        <default_value></default_value>
+                    </item>
+                    <item id="list_id_template">
+                        <type>template</type>
+                        <default_value>lists.tpl</default_value>
+                    </item>
+                    <item id="export_to_mailchimp">
+                        <name>Export to Mailchimp (Y/N)</name>
+                        <type>input</type>
+                        <default_value>N</default_value>
+                    </item>
+                </items>
+            </section>
+        </sections>
+    </settings>
+    <queries>
+        <item>
+            CREATE TABLE IF NOT EXISTS `?:soneritics_mailchimp_queue`(
+            `id` INT NOT NULL AUTO_INCREMENT,
+            `email` VARCHAR(255) NOT NULL,
+            `firstname` VARCHAR(255) NOT NULL,
+            `lastname` VARCHAR(255) NOT NULL,
+            PRIMARY KEY (`id`)
+            );
+        </item>
+        <item for="uninstall">DROP TABLE IF EXISTS `?:soneritics_mailchimp_queue`</item>
+    </queries>
+</addon>
