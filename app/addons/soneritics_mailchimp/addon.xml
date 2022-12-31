@@ -4,7 +4,7 @@
     <name>Soneritics Mailchimp</name>
     <version>1.0</version>
     <default_language>en</default_language>
-    <priority>1000</priority>
+    <priority>100</priority>
     <status>active</status>
     <has_icon>Y</has_icon>
     <settings edition_type="ROOT,ULT:VENDOR">
